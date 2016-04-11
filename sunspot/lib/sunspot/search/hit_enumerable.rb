@@ -30,8 +30,10 @@ module Sunspot
           data_accessor = data_accessor_for(Util.full_const_get(class_name))          
           hits_for_class = id_hit_hash[class_name]
           data_accessor.load_all(ids).each do |result|
+            puts hits_for_class
+            puts Adapters::InstanceAdapter.adapt(result).id.to_s
             hit = hits_for_class.delete(Adapters::InstanceAdapter.adapt(result).id.to_s)
-            hit.result = result rescue Rails.logger.error('error2')
+            hit.result = result unless hit.nil?
           end
           hits_for_class.values.each { |hit| hit.result = nil rescue Rails.logger.error('error2') }
         end
