@@ -16,27 +16,16 @@ describe Sunspot::Solr::Server do
     @server.run
   end
 
-  it 'runs Java with min memory' do
-    @server.min_memory = 1024
-    @server.should_receive(:exec).with(/-Xms1024/)
-    @server.run
-  end
-
-  it 'runs Java with max memory' do
-    @server.max_memory = 2048
+  it 'runs Java with memory set' do
+    @server.memory = 2048
     @server.should_receive(:exec).with(/-Xmx2048/)
+    @server.should_receive(:exec).with(/-Xms2048/)
     @server.run
   end
 
   it 'runs Jetty with specified port' do
     @server.port = 8981
     @server.should_receive(:exec).with(/-Djetty\.port=8981/)
-    @server.run
-  end
-
-  it 'runs Solr with specified data dir' do
-    @server.solr_data_dir = '/tmp/var/solr/data'
-    @server.should_receive(:exec).with(%r(-Dsolr\.data\.dir=/tmp/var/solr/data))
     @server.run
   end
 
@@ -66,8 +55,8 @@ describe Sunspot::Solr::Server do
       Tempfile.should_receive(:new).with('logging.properties').and_return(@tempfile = StringIO.new)
       @tempfile.should_receive(:flush)
       @tempfile.should_receive(:close)
-      @tempfile.stub!(:path).and_return('/tmp/logging.properties.12345')
-      @server.stub!(:exec)
+      @tempfile.stub(:path).and_return('/tmp/logging.properties.12345')
+      @server.stub(:exec)
     end
 
     it 'runs Solr with logging properties file' do

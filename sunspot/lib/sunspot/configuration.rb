@@ -22,9 +22,10 @@ module Sunspot
       def build #:nodoc:
         LightConfig.build do
           solr do
-            url 'http://127.0.0.1:8983/solr'
+            url 'http://127.0.0.1:8983/solr/default'
             read_timeout nil
             open_timeout nil
+            proxy nil
           end
           master_solr do
             url nil
@@ -37,7 +38,7 @@ module Sunspot
           end
         end
       end
-      
+
       # Location for the default solr configuration files,
       # required for bootstrapping a new solr installation
       #

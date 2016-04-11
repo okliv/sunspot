@@ -13,8 +13,9 @@ Gem::Specification.new do |s|
                   'Brian Atkinson', 'Tom Coleman', 'Matt Mitchell', 'Nathan Beyer', 'Kieran Topping', 'Nicolas Braem', 'Jeremy Ashkenas',
                   'Dylan Vaughn', 'Brian Durand', 'Sam Granieri', 'Nick Zadrozny', 'Jason Ronallo']
   s.email       = ["mat@patch.com"]
-  s.homepage    = 'https://github.com/outoftime/sunspot/tree/master/sunspot_solr'
+  s.homepage    = 'https://github.com/sunspot/sunspot/tree/master/sunspot_solr'
   s.summary     = 'Bundled Solr distribution for Sunspot'
+  s.license     = 'MIT'
   s.description = <<-TEXT
     Sunspot::Solr provides a bundled Solr distribution for use with Sunspot.
     Typical deployment environments will require more configuration, but this

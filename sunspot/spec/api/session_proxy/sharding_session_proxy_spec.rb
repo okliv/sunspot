@@ -15,7 +15,7 @@ describe Sunspot::SessionProxy::ShardingSessionProxy do
     end
   end
 
-  [:remove_by_id, :remove_by_id!].each do |method|
+  [:remove_by_id, :remove_by_id!, :atomic_update, :atomic_update!].each do |method|
     it "should raise NotSupportedError when #{method} called" do
       lambda { @proxy.send(method, Post, 1) }.should raise_error(Sunspot::SessionProxy::NotSupportedError)
     end
@@ -60,7 +60,7 @@ describe Sunspot::SessionProxy::ShardingSessionProxy do
 
   [:dirty, :delete_dirty].each do |method|
     it "should be dirty if any of the sessions are dirty" do
-      @proxy.sessions[0].stub!(:"#{method}?").and_return(true)
+      @proxy.sessions[0].stub(:"#{method}?").and_return(true)
       @proxy.should send("be_#{method}")
     end
 
